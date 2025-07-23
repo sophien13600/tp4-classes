@@ -35,7 +35,6 @@ class CompteCourant extends Compte implements OperationAvancee{
         return false;
     }
 
-    function crediter(int $somme):void{}
 
     public function debiter(int $somme):bool{
         if($this->getSolde() -$somme > $this->decouvert){

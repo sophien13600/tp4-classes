@@ -1,55 +1,50 @@
 <?php
 
+abstract class Compte implements OperationSimple, OperationAvancee
+{
+    private Client $client;
+    public function __construct(
+        protected int $id,
+        protected float $solde
+    ) {}
 
-abstract class Compte implements OperationSimple{
-        public function __construct(protected int $identifiant,protected float $solde,)
-        {
-            
-        }
-        
-        /**
-         * Get the value of identifiant
-         */ 
-        public function getIdentifiant()
-        {
-                return $this->identifiant;
-            }
-            
-            /**
-             * Set the value of identifiant
-         *
-         * @return  self
-         */ 
-        public function setIdentifiant($identifiant)
-        {
-            $this->identifiant = $identifiant;
-            
-            return $this;
-        }
 
-        /**
-         * Get the value of solde
-         */ 
-        public function getSolde()
-        {
-            return $this->solde;
-        }
-        
-        /**
-         * Set the value of solde
-        *
-        * @return  self
-        */ 
-        public function setSolde($solde)
-        {
-            $this->solde = $solde;
-            
-            return $this;
-        }
-         public function crediter(int $somme):void{
-            $this->setSolde($somme);
-
+    public function getId()
+    {
+        return $this->id;
     }
-        abstract function debiter(int $somme):bool;
-        abstract function imprimer():void;
+
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
+
+
+    public function getSolde()
+    {
+        return $this->solde;
+    }
+
+    public function setSolde($solde)
+    {
+        $this->solde = $solde;
+    }
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+
+    public function setClient($client)
+    {
+        $this->client = $client;
+        return $this;
+    }
+    final function   crediter(int $somme): void
+    {
+        $this->solde += $somme;
+    }
+
+    abstract public function imprimer(): void;
+}

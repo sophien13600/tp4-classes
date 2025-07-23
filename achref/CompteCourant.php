@@ -37,4 +37,12 @@ class CompteCourant extends Compte implements OperationAvancee
         }
         return $test;
     }
+    public function imprimer(): void
+    {
+        echo "\n*****************************";
+        echo "\nType : compte courant";
+        echo "\nSolde : $this->solde €";
+        echo "\nDécouvert : $this->decouvert €";
+        echo "\n*****************************";
+    }
 }

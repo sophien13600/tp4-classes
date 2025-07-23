@@ -26,19 +26,32 @@ class CompteEpargne extends Compte{
 
         return $this;
     }
+public function ajouterInteret(){
+     //return $this->setSolde($this->getSolde() * $this->getTauxInteret());
+     $this->solde += ($this->solde * $this->tauxInteret) / 100;
+    }
 
 
-    public function crediter(int $somme):void{ }
-    public function debiter(int $somme):bool{
-        if(($this->getSolde() - $somme )> 0){
-            
-            return true;
+    function debiter(int $somme): bool
+    {
+        if ($somme > $this->solde) {
+            return false;
         }
-        return false;
+        $this->solde -= $somme;
+        return true;
     }
     public function imprimer():void{
         echo $this->getSolde();
         echo $this->getTauxInteret();
+    }
+    function virement(Compte $beneficiaire, int $somme): bool
+    {
+
+        $test = $this->getClient()->getIdentifiant() != $beneficiaire->getClient()->getIdentifiant() &&  $this->debiter($somme);
+        if ($test) {
+            $beneficiaire->crediter($somme);
+        }
+        return $test;
     }
 
 }
